@@ -14,7 +14,20 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@transactionsviewer/data-access-transactions": [
+        "libs/transactionsviewer/data-access-transactions/src/index.ts"
+      ],
+      "@transactionsviewer/feature-transactions-list": [
+        "libs/transactionsviewer/feature-transaction-list/src/index.ts"
+      ],
+      "@transactionsviewer/ui-transactions-list": [
+        "libs/transactionsviewer/ui-transactions-list/src/index.ts"
+      ],
+      "@transactionsviewer/util-models": [
+        "libs/transactionsviewer/util-models/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

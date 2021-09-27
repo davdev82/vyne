@@ -28,11 +28,23 @@
   },
   "projects": {
     "transactionsviewer": {
-      "tags": []
+      "tags": ["scope:transactionsviewer", "type:app"]
+    },
+    "transactionsviewer-data-access-transactions": {
+      "tags": ["scope:transactionsviewer, type:data-access"]
     },
     "transactionsviewer-e2e": {
       "tags": [],
       "implicitDependencies": ["transactionsviewer"]
+    },
+    "transactionsviewer-feature-transaction-list": {
+      "tags": ["scope:transactionsviewer, type:feature"]
+    },
+    "transactionsviewer-ui-transactions-list": {
+      "tags": ["scope:transactionsviewer, type:ui"]
+    },
+    "transactionsviewer-util-models": {
+      "tags": ["scope:transactionsviewer, type:util"]
     }
   }
 }

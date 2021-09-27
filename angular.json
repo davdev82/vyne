@@ -94,6 +94,33 @@
         }
       }
     },
+    "transactionsviewer-data-access-transactions": {
+      "projectType": "library",
+      "root": "libs/transactionsviewer/data-access-transactions",
+      "sourceRoot": "libs/transactionsviewer/data-access-transactions/src",
+      "prefix": "vyne",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/transactionsviewer/data-access-transactions"
+          ],
+          "options": {
+            "jestConfig": "libs/transactionsviewer/data-access-transactions/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/transactionsviewer/data-access-transactions/src/**/*.ts",
+              "libs/transactionsviewer/data-access-transactions/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "transactionsviewer-e2e": {
       "root": "apps/transactionsviewer-e2e",
       "sourceRoot": "apps/transactionsviewer-e2e/src",
@@ -117,6 +144,83 @@
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["apps/transactionsviewer-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "transactionsviewer-feature-transaction-list": {
+      "projectType": "library",
+      "root": "libs/transactionsviewer/feature-transaction-list",
+      "sourceRoot": "libs/transactionsviewer/feature-transaction-list/src",
+      "prefix": "vyne",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/transactionsviewer/feature-transaction-list"
+          ],
+          "options": {
+            "jestConfig": "libs/transactionsviewer/feature-transaction-list/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/transactionsviewer/feature-transaction-list/src/**/*.ts",
+              "libs/transactionsviewer/feature-transaction-list/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "transactionsviewer-ui-transactions-list": {
+      "projectType": "library",
+      "root": "libs/transactionsviewer/ui-transactions-list",
+      "sourceRoot": "libs/transactionsviewer/ui-transactions-list/src",
+      "prefix": "vyne",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/transactionsviewer/ui-transactions-list"],
+          "options": {
+            "jestConfig": "libs/transactionsviewer/ui-transactions-list/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/transactionsviewer/ui-transactions-list/src/**/*.ts",
+              "libs/transactionsviewer/ui-transactions-list/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "transactionsviewer-util-models": {
+      "projectType": "library",
+      "root": "libs/transactionsviewer/util-models",
+      "sourceRoot": "libs/transactionsviewer/util-models/src",
+      "prefix": "vyne",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/transactionsviewer/util-models"],
+          "options": {
+            "jestConfig": "libs/transactionsviewer/util-models/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/transactionsviewer/util-models/src/**/*.ts",
+              "libs/transactionsviewer/util-models/src/**/*.html"
+            ]
           }
         }
       }
