@@ -21,7 +21,10 @@
               "apps/transactionsviewer/src/favicon.ico",
               "apps/transactionsviewer/src/assets"
             ],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/transactionsviewer/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/transactionsviewer/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {

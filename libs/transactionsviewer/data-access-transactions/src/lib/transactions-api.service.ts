@@ -4,7 +4,7 @@ import { TransactionsApiResponse } from '@transactionsviewer/util-models';
 
 @Injectable()
 export class TransactionsApiService {
-  api = 'http://localhost:8080/api/v1/';
+  api = 'http://localhost:8080/api/v1';
 
   constructor(private httpClient: HttpClient) {}
 

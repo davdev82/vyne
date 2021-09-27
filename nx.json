@@ -31,20 +31,20 @@
       "tags": ["scope:transactionsviewer", "type:app"]
     },
     "transactionsviewer-data-access-transactions": {
-      "tags": ["scope:transactionsviewer, type:data-access"]
+      "tags": ["scope:transactionsviewer", "type:data-access"]
     },
     "transactionsviewer-e2e": {
-      "tags": [],
+      "tags": ["scope:e2e"],
       "implicitDependencies": ["transactionsviewer"]
     },
     "transactionsviewer-feature-transaction-list": {
-      "tags": ["scope:transactionsviewer, type:feature"]
+      "tags": ["scope:transactionsviewer", "type:feature"]
     },
     "transactionsviewer-ui-transactions-list": {
-      "tags": ["scope:transactionsviewer, type:ui"]
+      "tags": ["scope:transactionsviewer", "type:ui"]
     },
     "transactionsviewer-util-models": {
-      "tags": ["scope:transactionsviewer, type:util"]
+      "tags": ["scope:transactionsviewer", "type:util"]
     }
   }
 }
