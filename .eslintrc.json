@@ -17,9 +17,9 @@
                 "onlyDependOnLibsWithTags": ["scope:shared"]
               },
               {
-                "sourceTag": "scope:asset-manager",
+                "sourceTag": "scope:transactionsviewer",
                 "onlyDependOnLibsWithTags": [
-                  "scope:asset-manager",
+                  "scope:transactionsviewer",
                   "scope:shared"
                 ]
               },
