@@ -9,14 +9,10 @@ import * as TransactionsSelectors from './transactions.selectors';
 
 @Injectable()
 export class TransactionsFacade {
-  page$ = this.store.pipe(
-    select(TransactionsSelectors.getPageNumber),
-    this.filterNullOrUndefined()
-  );
+  page$ = this.store.pipe(select(TransactionsSelectors.getPageNumber));
 
   transactions$ = this.store.pipe(
-    select(TransactionsSelectors.getTransactions),
-    this.filterNullOrUndefined()
+    select(TransactionsSelectors.getTransactions)
   );
 
   dateFilter$ = this.store.pipe(
@@ -30,23 +26,19 @@ export class TransactionsFacade {
   );
 
   isTransactionsLoading$ = this.store.pipe(
-    select(TransactionsSelectors.isTransactionsLoading),
-    filter((loading) => !!loading)
+    select(TransactionsSelectors.isTransactionsLoading)
   );
 
   isTransactionsNotFetched$ = this.store.pipe(
-    select(TransactionsSelectors.isTransactionsNotFetched),
-    filter((notFetched) => !!notFetched)
+    select(TransactionsSelectors.isTransactionsNotFetched)
   );
 
   isTransactionsSuccess$ = this.store.pipe(
-    select(TransactionsSelectors.isTransactionsSuccess),
-    filter((success) => !!success)
+    select(TransactionsSelectors.isTransactionsSuccess)
   );
 
   isTransactionsEmpty$ = this.store.pipe(
-    select(TransactionsSelectors.isTransactionsEmpty),
-    filter((isEmpty) => !!isEmpty)
+    select(TransactionsSelectors.isTransactionsEmpty)
   );
 
   transactionsError$ = this.store.pipe(
@@ -55,14 +47,10 @@ export class TransactionsFacade {
   );
 
   transactionsCount$ = this.store.pipe(
-    select(TransactionsSelectors.getTransactionsCount),
-    this.filterNullOrUndefined()
+    select(TransactionsSelectors.getTransactionsCount)
   );
 
-  pageCount$ = this.store.pipe(
-    select(TransactionsSelectors.getPageCount),
-    this.filterNullOrUndefined()
-  );
+  pageCount$ = this.store.pipe(select(TransactionsSelectors.getPageCount));
 
   constructor(
     private store: Store<TransactionsFeature.TransactionsPartialState>
