@@ -1,44 +1,92 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
+  isRemoteDataError,
+  isRemoteDataLoading,
+  isRemoteDataNotFetched,
+  isRemoteDataOK,
+  RemoteData,
+  Transaction,
+} from '@transactionsviewer/util-models';
+import {
+  TransactionsPartialState,
+  TransactionsState,
   TRANSACTIONS_FEATURE_KEY,
-  State,
-  transactionsAdapter,
 } from './transactions.reducer';
 
-// Lookup the 'Transactions' feature state managed by NgRx
-export const getTransactionsState = createFeatureSelector<State>(
-  TRANSACTIONS_FEATURE_KEY
+export const selectTransactionsState = createFeatureSelector<
+  TransactionsPartialState,
+  TransactionsState
+>(TRANSACTIONS_FEATURE_KEY);
+
+export const getTransactionsRemoteState = createSelector(
+  selectTransactionsState,
+  (state: TransactionsState) => state.remoteState
 );
 
-const { selectAll, selectEntities } = transactionsAdapter.getSelectors();
+export const getDateFilter = createSelector(
+  selectTransactionsState,
+  (state: TransactionsState) => state.dateFilter
+);
 
-export const getTransactionsLoaded = createSelector(
-  getTransactionsState,
-  (state: State) => state.loaded
+export const getStatusFilter = createSelector(
+  selectTransactionsState,
+  (state: TransactionsState) => state.statusFilter
+);
+
+export const getTransactions = createSelector(
+  selectTransactionsState,
+  (state: TransactionsState) => state.transactions
+);
+
+export const getPageNumber = createSelector(
+  selectTransactionsState,
+  (state: TransactionsState) => state.page
+);
+
+export const getTransactionsCount = createSelector(
+  selectTransactionsState,
+  (state: TransactionsState) => state.totalNumberOfItems
+);
+
+export const getPageCount = createSelector(
+  selectTransactionsState,
+  (state: TransactionsState) => state.numberOfPages
+);
+
+export const isTransactionsNotFetched = createSelector(
+  getTransactionsRemoteState,
+  (remoteState: RemoteData) => {
+    return isRemoteDataNotFetched(remoteState);
+  }
+);
+
+export const isTransactionsLoading = createSelector(
+  getTransactionsRemoteState,
+  (remoteState: RemoteData) => {
+    return isRemoteDataLoading(remoteState);
+  }
+);
+
+export const isTransactionsSuccess = createSelector(
+  getTransactionsRemoteState,
+  (remoteState: RemoteData) => {
+    return isRemoteDataOK(remoteState);
+  }
+);
+
+export const isTransactionsEmpty = createSelector(
+  getTransactions,
+  (transactions: Transaction[] | null) => {
+    return transactions !== null && transactions.length === 0;
+  }
 );
 
 export const getTransactionsError = createSelector(
-  getTransactionsState,
-  (state: State) => state.error
-);
-
-export const getAllTransactions = createSelector(
-  getTransactionsState,
-  (state: State) => selectAll(state)
-);
-
-export const getTransactionsEntities = createSelector(
-  getTransactionsState,
-  (state: State) => selectEntities(state)
-);
-
-export const getSelectedId = createSelector(
-  getTransactionsState,
-  (state: State) => state.selectedId
-);
-
-export const getSelected = createSelector(
-  getTransactionsEntities,
-  getSelectedId,
-  (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
+  getTransactionsRemoteState,
+  (remoteState: RemoteData) => {
+    if (isRemoteDataError(remoteState)) {
+      return remoteState.error;
+    }
+    return undefined;
+  }
 );

@@ -5,6 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromTransactions from './+state/transactions.reducer';
 import { TransactionsEffects } from './+state/transactions.effects';
 import { TransactionsFacade } from './+state/transactions.facade';
+import { TransactionsApiService } from './transactions-api.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { TransactionsFacade } from './+state/transactions.facade';
     ),
     EffectsModule.forFeature([TransactionsEffects]),
   ],
-  providers: [TransactionsFacade],
+  providers: [TransactionsFacade, TransactionsApiService],
 })
 export class TransactionsviewerDataAccessTransactionsModule {}

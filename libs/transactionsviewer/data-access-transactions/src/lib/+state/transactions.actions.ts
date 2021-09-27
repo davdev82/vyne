@@ -1,14 +1,36 @@
 import { createAction, props } from '@ngrx/store';
-import { TransactionsEntity } from './transactions.models';
+import {
+  TransactionsApiResponse,
+  TransactionStatus,
+} from '@transactionsviewer/util-models';
 
-export const init = createAction('[Transactions Page] Init');
+export const enterTransactionsPage = createAction('[Transactions Page] Enter');
+
+export const loadTransactions = createAction(
+  '[TransactionsEffects] Load Transactions'
+);
 
 export const loadTransactionsSuccess = createAction(
-  '[Transactions/API] Load Transactions Success',
-  props<{ transactions: TransactionsEntity[] }>()
+  '[TransactionsEffects] Load Transactions Success',
+  props<{ apiResponse: TransactionsApiResponse }>()
 );
 
 export const loadTransactionsFailure = createAction(
-  '[Transactions/API] Load Transactions Failure',
-  props<{ error: any }>()
+  '[TransactionsEffects] Load Transactions Failure',
+  props<{ error: Error }>()
+);
+
+export const paginate = createAction(
+  '[Transactions Page] Paginate transactions',
+  props<{ page: number }>()
+);
+
+export const filterByStatus = createAction(
+  '[Transactions Page] Filter transactions by status',
+  props<{ status: TransactionStatus }>()
+);
+
+export const filterByDate = createAction(
+  '[Transactions Page] Filter transactions by Date',
+  props<{ date: string }>()
 );

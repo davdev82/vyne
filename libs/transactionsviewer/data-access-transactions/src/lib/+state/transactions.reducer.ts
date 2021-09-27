@@ -1,45 +1,74 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
+import {
+  RemoteData,
+  remoteDataError,
+  remoteDataLoading,
+  remoteDataNotFetched,
+  remoteDataOK,
+  Transaction,
+  TransactionStatus,
+} from '@transactionsviewer/util-models';
 
 import * as TransactionsActions from './transactions.actions';
-import { TransactionsEntity } from './transactions.models';
 
 export const TRANSACTIONS_FEATURE_KEY = 'transactions';
 
-export interface State extends EntityState<TransactionsEntity> {
-  selectedId?: string | number; // which Transactions record has been selected
-  loaded: boolean; // has the Transactions list been loaded
-  error?: string | null; // last known error (if any)
+export interface TransactionsState {
+  remoteState: RemoteData<null>;
+  transactions: Transaction[] | null;
+  statusFilter: TransactionStatus | null;
+  dateFilter: string | null;
+  page: number;
+  numberOfPages: number | null;
+  totalNumberOfItems: number | null;
 }
 
 export interface TransactionsPartialState {
-  readonly [TRANSACTIONS_FEATURE_KEY]: State;
+  readonly [TRANSACTIONS_FEATURE_KEY]: TransactionsState;
 }
 
-export const transactionsAdapter: EntityAdapter<TransactionsEntity> =
-  createEntityAdapter<TransactionsEntity>();
-
-export const initialState: State = transactionsAdapter.getInitialState({
-  // set initial required properties
-  loaded: false,
-});
+export const initialState: TransactionsState = {
+  remoteState: remoteDataNotFetched(),
+  transactions: null,
+  statusFilter: null,
+  page: 0,
+  dateFilter: null,
+  numberOfPages: null,
+  totalNumberOfItems: null,
+};
 
 const transactionsReducer = createReducer(
   initialState,
-  on(TransactionsActions.init, (state) => ({
+  on(TransactionsActions.loadTransactions, (state) => ({
     ...state,
-    loaded: false,
-    error: null,
+    remoteState: remoteDataLoading(),
+    transactions: null,
   })),
-  on(TransactionsActions.loadTransactionsSuccess, (state, { transactions }) =>
-    transactionsAdapter.setAll(transactions, { ...state, loaded: true })
-  ),
+  on(TransactionsActions.loadTransactionsSuccess, (state, { apiResponse }) => ({
+    ...state,
+    remoteState: remoteDataOK(null),
+    transactions: apiResponse.items,
+    numberOfPages: apiResponse.numberOfPages,
+    totalNumberOfItems: apiResponse.totalNumberOfItems,
+  })),
   on(TransactionsActions.loadTransactionsFailure, (state, { error }) => ({
     ...state,
-    error,
+    remoteState: remoteDataError(error),
+  })),
+  on(TransactionsActions.filterByDate, (state, { date: dateFilter }) => ({
+    ...state,
+    dateFilter,
+  })),
+  on(TransactionsActions.filterByStatus, (state, { status: statusFilter }) => ({
+    ...state,
+    statusFilter,
+  })),
+  on(TransactionsActions.paginate, (state, { page }) => ({
+    ...state,
+    page,
   }))
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: TransactionsState | undefined, action: Action) {
   return transactionsReducer(state, action);
 }
