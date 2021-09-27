@@ -37,13 +37,12 @@ export class TransactionsFacade {
     select(TransactionsSelectors.isTransactionsSuccess)
   );
 
-  isTransactionsEmpty$ = this.store.pipe(
-    select(TransactionsSelectors.isTransactionsEmpty)
+  isTransactionsFailure$ = this.store.pipe(
+    select(TransactionsSelectors.isTransactionsFailure)
   );
 
-  transactionsError$ = this.store.pipe(
-    select(TransactionsSelectors.getTransactionsError),
-    this.filterNullOrUndefined()
+  isTransactionsEmpty$ = this.store.pipe(
+    select(TransactionsSelectors.isTransactionsEmpty)
   );
 
   transactionsCount$ = this.store.pipe(

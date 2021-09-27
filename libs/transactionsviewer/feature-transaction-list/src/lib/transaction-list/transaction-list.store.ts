@@ -14,6 +14,8 @@ export interface TransactionListViewModel {
   pageCount: number | null;
   loading: boolean;
   empty: boolean;
+  failure: boolean;
+  success: boolean;
 }
 
 @Injectable()
@@ -29,13 +31,25 @@ export class TransactionListStore extends ComponentStore<never> {
     this.facade.transactionsCount$,
     this.facade.pageCount$,
     this.facade.isTransactionsLoading$,
+    this.facade.isTransactionsFailure$,
     this.facade.isTransactionsEmpty$,
-    (transactions, transactionCount, pageCount, loading, empty) => ({
+    this.facade.isTransactionsSuccess$,
+    (
       transactions,
       transactionCount,
       pageCount,
       loading,
+      failure,
       empty,
+      success
+    ) => ({
+      transactions,
+      transactionCount,
+      pageCount,
+      loading,
+      failure,
+      empty,
+      success,
     })
   );
 

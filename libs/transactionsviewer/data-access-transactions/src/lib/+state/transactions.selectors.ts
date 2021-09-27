@@ -67,6 +67,13 @@ export const isTransactionsLoading = createSelector(
   }
 );
 
+export const isTransactionsFailure = createSelector(
+  getTransactionsRemoteState,
+  (remoteState: RemoteData) => {
+    return isRemoteDataError(remoteState);
+  }
+);
+
 export const isTransactionsSuccess = createSelector(
   getTransactionsRemoteState,
   (remoteState: RemoteData) => {
@@ -78,15 +85,5 @@ export const isTransactionsEmpty = createSelector(
   getTransactions,
   (transactions: Transaction[] | null) => {
     return transactions !== null && transactions.length === 0;
-  }
-);
-
-export const getTransactionsError = createSelector(
-  getTransactionsRemoteState,
-  (remoteState: RemoteData) => {
-    if (isRemoteDataError(remoteState)) {
-      return remoteState.error;
-    }
-    return undefined;
   }
 );
