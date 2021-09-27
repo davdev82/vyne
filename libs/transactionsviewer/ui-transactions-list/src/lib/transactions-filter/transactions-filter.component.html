@@ -1,1 +1,26 @@
-<p>transactions-filter works!</p>
+<fieldset class="filter-section">
+  <legend>Filter Transactions</legend>
+  <div class="filter-section__status-filter">
+    <mat-form-field appearance="fill" class="filter-section__form-field">
+      <mat-label>Transaction Status</mat-label>
+      <mat-select (selectionChange)="handleSelectionChange($any($event))">
+        <mat-option *ngFor="let status of statuses" [value]="status.value">
+          {{ status.display }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="filter-section__date-filter">
+    <mat-form-field appearance="fill" class="filter-section__form-field">
+      <mat-label>Choose a date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        (dateChange)="handleDateChange($any($event))"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</fieldset>

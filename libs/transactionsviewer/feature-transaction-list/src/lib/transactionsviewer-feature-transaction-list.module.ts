@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { RouterModule } from '@angular/router';
 import { TransactionsviewerDataAccessTransactionsModule } from '@transactionsviewer/data-access-transactions';
-
+import { TransactionsviewerUiTransactionsListModule } from '@transactionsviewer/ui-transactions-list';
 @NgModule({
   imports: [
     CommonModule,
     TransactionsviewerDataAccessTransactionsModule,
+    TransactionsviewerUiTransactionsListModule,
     RouterModule.forChild([
       {
         path: '',
