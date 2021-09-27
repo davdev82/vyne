@@ -3,6 +3,7 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { TransactionStatus } from '@transactionsviewer/util-models';
 import { TransactionListStore } from './transaction-list.store';
 
@@ -27,7 +28,7 @@ export class TransactionListComponent {
     this.componentStore.filterByDate(date);
   }
 
-  paginate(page: number) {
+  paginate(page: PageEvent) {
     this.componentStore.paginate(page);
   }
 }

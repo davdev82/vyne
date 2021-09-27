@@ -13,14 +13,30 @@
       ></vyne-transactions-filter>
     </div>
 
-    <div class="transactions-list__list-section" *ngIf="vm.success">
-      <vyne-transactions-list
-        [transactions]="vm.transactions"
-      ></vyne-transactions-list>
-    </div>
+    <ng-container *ngIf="vm.success && !vm.empty">
+      <div class="transactions-list__list-section">
+        <vyne-transactions-list
+          [transactions]="vm.transactions"
+        ></vyne-transactions-list>
+      </div>
+
+      <div class="transactions-list__pagination-section">
+        <mat-paginator
+          [pageSizeOptions]="[5]"
+          (page)="paginate($event)"
+          [pageSize]="5"
+          [length]="vm.transactionCount"
+          [showFirstLastButtons]="true"
+        ></mat-paginator>
+      </div>
+    </ng-container>
 
     <p class="transactions-list__error-section" *ngIf="vm.failure">
       There was an error getting the transactions list
+    </p>
+
+    <p class="transactions-list__empty-section" *ngIf="vm.empty">
+      There are no transactions that match your filter criteria
     </p>
   </div>
 </ng-container>

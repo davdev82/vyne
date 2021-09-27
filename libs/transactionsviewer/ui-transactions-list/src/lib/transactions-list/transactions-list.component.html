@@ -1,10 +1,5 @@
 <ng-container *ngIf="transactions">
   <div class="transactions-list">
-    <ng-container
-      *ngIf="transactions.length === 0"
-      [ngTemplateOutlet]="emptyList"
-    ></ng-container>
-
     <mat-table [dataSource]="transactions" *ngIf="transactions.length">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
@@ -33,7 +28,6 @@
         </mat-cell>
       </ng-container>
 
-      <!-- Header and Row Declarations -->
       <mat-header-row
         *matHeaderRowDef="[
           'id',
@@ -51,10 +45,4 @@
       ></mat-row>
     </mat-table>
   </div>
-
-  <ng-template #emptyList>
-    <p class="transactions-list__empty-section">
-      There are no transactions that match your filter criteria
-    </p>
-  </ng-template>
 </ng-container>

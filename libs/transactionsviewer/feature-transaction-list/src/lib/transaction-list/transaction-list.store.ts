@@ -7,12 +7,14 @@ import { ComponentStore } from '@ngrx/component-store';
 import { TransactionsFacade } from '@transactionsviewer/data-access-transactions';
 import { tap } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 export interface TransactionListViewModel {
   transactions: Transaction[] | null;
   transactionCount: number | null;
   pageCount: number | null;
   loading: boolean;
+  empty: boolean;
   failure: boolean;
   success: boolean;
 }
@@ -31,13 +33,23 @@ export class TransactionListStore extends ComponentStore<never> {
     this.facade.pageCount$,
     this.facade.isTransactionsLoading$,
     this.facade.isTransactionsFailure$,
+    this.facade.isTransactionsEmpty$,
     this.facade.isTransactionsSuccess$,
-    (transactions, transactionCount, pageCount, loading, failure, success) => ({
+    (
       transactions,
       transactionCount,
       pageCount,
       loading,
       failure,
+      empty,
+      success
+    ) => ({
+      transactions,
+      transactionCount,
+      pageCount,
+      loading,
+      failure,
+      empty,
       success,
     })
   );
@@ -94,7 +106,7 @@ export class TransactionListStore extends ComponentStore<never> {
     this.dateFilterSubject.next(date);
   }
 
-  paginate(page: number) {
-    this.paginateSubject.next(page);
+  paginate(page: PageEvent) {
+    this.paginateSubject.next(page.pageIndex);
   }
 }
