@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "projects": {
+    "transactionsviewer": {
+      "projectType": "application",
+      "root": "apps/transactionsviewer",
+      "sourceRoot": "apps/transactionsviewer/src",
+      "prefix": "vyne",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/transactionsviewer",
+            "index": "apps/transactionsviewer/src/index.html",
+            "main": "apps/transactionsviewer/src/main.ts",
+            "polyfills": "apps/transactionsviewer/src/polyfills.ts",
+            "tsConfig": "apps/transactionsviewer/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/transactionsviewer/src/favicon.ico",
+              "apps/transactionsviewer/src/assets"
+            ],
+            "styles": ["apps/transactionsviewer/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/transactionsviewer/src/environments/environment.ts",
+                  "with": "apps/transactionsviewer/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "transactionsviewer:build:production"
+            },
+            "development": {
+              "browserTarget": "transactionsviewer:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "transactionsviewer:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/transactionsviewer/src/**/*.ts",
+              "apps/transactionsviewer/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/transactionsviewer"],
+          "options": {
+            "jestConfig": "apps/transactionsviewer/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "transactionsviewer-e2e": {
+      "root": "apps/transactionsviewer-e2e",
+      "sourceRoot": "apps/transactionsviewer-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/transactionsviewer-e2e/cypress.json",
+            "devServerTarget": "transactionsviewer:serve:development",
+            "tsConfig": "apps/transactionsviewer-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "transactionsviewer:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/transactionsviewer-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "npm"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "transactionsviewer"
+}
