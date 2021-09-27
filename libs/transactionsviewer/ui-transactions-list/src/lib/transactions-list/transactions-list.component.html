@@ -1,1 +1,60 @@
-<p>transactions-list works!</p>
+<ng-container *ngIf="transactions">
+  <div class="transactions-list">
+    <ng-container
+      *ngIf="transactions.length === 0"
+      [ngTemplateOutlet]="emptyList"
+    ></ng-container>
+
+    <mat-table [dataSource]="transactions" *ngIf="transactions.length">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.description }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.status }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="currency">
+        <mat-header-cell *matHeaderCellDef> Currency </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.currency }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ formatDateForDisplay(row.createdAt) }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <mat-header-row
+        *matHeaderRowDef="[
+          'id',
+          'description',
+          'status',
+          'currency',
+          'createdAt'
+        ]"
+      ></mat-header-row>
+      <mat-row
+        *matRowDef="
+          let row;
+          columns: ['id', 'description', 'status', 'currency', 'createdAt']
+        "
+      ></mat-row>
+    </mat-table>
+  </div>
+
+  <ng-template #emptyList>
+    <p class="transactions-list__empty-section">
+      There are no transactions that match your filter criteria
+    </p>
+  </ng-template>
+</ng-container>

@@ -13,7 +13,6 @@ export interface TransactionListViewModel {
   transactionCount: number | null;
   pageCount: number | null;
   loading: boolean;
-  empty: boolean;
   failure: boolean;
   success: boolean;
 }
@@ -32,23 +31,13 @@ export class TransactionListStore extends ComponentStore<never> {
     this.facade.pageCount$,
     this.facade.isTransactionsLoading$,
     this.facade.isTransactionsFailure$,
-    this.facade.isTransactionsEmpty$,
     this.facade.isTransactionsSuccess$,
-    (
+    (transactions, transactionCount, pageCount, loading, failure, success) => ({
       transactions,
       transactionCount,
       pageCount,
       loading,
       failure,
-      empty,
-      success
-    ) => ({
-      transactions,
-      transactionCount,
-      pageCount,
-      loading,
-      failure,
-      empty,
       success,
     })
   );

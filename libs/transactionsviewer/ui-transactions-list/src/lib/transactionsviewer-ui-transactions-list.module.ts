@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
 
 const declarables = [TransactionsListComponent, TransactionsFilterComponent];
 
@@ -18,6 +19,7 @@ const declarables = [TransactionsListComponent, TransactionsFilterComponent];
     MatDatepickerModule,
     MatMomentDateModule,
     MatInputModule,
+    MatTableModule,
   ],
   declarations: [...declarables],
   exports: [...declarables],

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { TransactionsApiResponse } from '@transactionsviewer/util-models';
-import { catchError } from 'rxjs/operators';
+import { catchError, delay } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MOCK_RESPONSE } from './mock-data';
 
@@ -28,7 +28,7 @@ export class TransactionsApiService {
         },
         params,
       })
-      .pipe(catchError(() => of(MOCK_RESPONSE)));
+      .pipe(catchError(() => of(MOCK_RESPONSE).pipe(delay(500))));
   }
 
   private getHeaders() {

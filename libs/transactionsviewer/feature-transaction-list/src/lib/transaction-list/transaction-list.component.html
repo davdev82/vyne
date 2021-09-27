@@ -1,11 +1,26 @@
-<div class="transactions-list">
-  <h1 class="transactions-list__title">Payments List</h1>
-  <div class="transactions-list__filter-section">
-    <vyne-transactions-filter
-      (statusChanged)="filterByStatus($event)"
-      (dateChanged)="filterByDate($event)"
-    ></vyne-transactions-filter>
-  </div>
+<ng-container *rxLet="vm$; let vm">
+  <div class="transactions-list">
+    <mat-spinner
+      class="transactions-list__loader"
+      *ngIf="vm.loading"
+      mode="indeterminate"
+    ></mat-spinner>
+    <h1 class="transactions-list__title">Payments List</h1>
+    <div class="transactions-list__filter-section">
+      <vyne-transactions-filter
+        (statusChanged)="filterByStatus($event)"
+        (dateChanged)="filterByDate($event)"
+      ></vyne-transactions-filter>
+    </div>
 
-  <div class="transactions-list__list-section"></div>
-</div>
+    <div class="transactions-list__list-section" *ngIf="vm.success">
+      <vyne-transactions-list
+        [transactions]="vm.transactions"
+      ></vyne-transactions-list>
+    </div>
+
+    <p class="transactions-list__error-section" *ngIf="vm.failure">
+      There was an error getting the transactions list
+    </p>
+  </div>
+</ng-container>

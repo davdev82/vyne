@@ -41,10 +41,6 @@ export class TransactionsFacade {
     select(TransactionsSelectors.isTransactionsFailure)
   );
 
-  isTransactionsEmpty$ = this.store.pipe(
-    select(TransactionsSelectors.isTransactionsEmpty)
-  );
-
   transactionsCount$ = this.store.pipe(
     select(TransactionsSelectors.getTransactionsCount)
   );

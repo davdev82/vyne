@@ -1,3 +1,17 @@
 :host {
   display: block;
 }
+
+.transactions-list {
+  &__loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  &__error-section {
+    padding: 20px;
+  }
+  &__list-section {
+    margin-top: 40px;
+  }
+}
