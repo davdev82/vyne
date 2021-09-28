@@ -49,23 +49,17 @@ export const getTransactionsCount = createSelector(
 
 export const isTransactionsLoading = createSelector(
   getTransactionsRemoteState,
-  (remoteState: RemoteData) => {
-    return isRemoteDataLoading(remoteState);
-  }
+  (remoteState: RemoteData) => isRemoteDataLoading(remoteState)
 );
 
 export const isTransactionsFailure = createSelector(
   getTransactionsRemoteState,
-  (remoteState: RemoteData) => {
-    return isRemoteDataError(remoteState);
-  }
+  (remoteState: RemoteData) => isRemoteDataError(remoteState)
 );
 
 export const isTransactionsSuccess = createSelector(
   getTransactionsRemoteState,
-  (remoteState: RemoteData) => {
-    return isRemoteDataOK(remoteState);
-  }
+  (remoteState: RemoteData) => isRemoteDataOK(remoteState)
 );
 
 export const isTransactionsEmpty = createSelector(

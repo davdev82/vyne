@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import {
   isRemoteDataError,
   isRemoteDataNotFetched,
@@ -23,25 +23,25 @@ export class TransactionsEffects {
   init$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TransactionsActions.enterTransactionsPage),
-      concatLatestFrom(() => [this.store$.select(getTransactionsRemoteState)]),
-      filter(
-        ([, remoteState]) =>
-          !!(
-            isRemoteDataNotFetched(remoteState) ||
-            isRemoteDataError(remoteState)
-          )
-      ),
+      concatLatestFrom(() => {
+        return [this.store$.pipe(select(getTransactionsRemoteState))];
+      }),
+      filter(([, remoteState]) => {
+        return !!(
+          isRemoteDataNotFetched(remoteState) || isRemoteDataError(remoteState)
+        );
+      }),
       mapTo(TransactionsActions.loadTransactions())
     );
   });
 
-  loadServiceRequests$ = createEffect(() => {
+  loadTransactions$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TransactionsActions.loadTransactions),
       concatLatestFrom(() => [
-        this.store$.select(getDateFilter),
-        this.store$.select(getStatusFilter),
-        this.store$.select(getPageNumber),
+        this.store$.pipe(select(getDateFilter)),
+        this.store$.pipe(select(getStatusFilter)),
+        this.store$.pipe(select(getPageNumber)),
       ]),
       switchMap(([, dateFilter, statusFilter, page]) => {
         return this.transactionsService
@@ -73,7 +73,7 @@ export class TransactionsEffects {
 
   constructor(
     private readonly actions$: Actions,
-    private store$: Store<TransactionsPartialState>,
-    private transactionsService: TransactionsApiService
+    private readonly store$: Store<TransactionsPartialState>,
+    private readonly transactionsService: TransactionsApiService
   ) {}
 }

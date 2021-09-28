@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TransactionStatus } from '@transactionsviewer/util-models';
-import { OperatorFunction, pipe } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import * as TransactionsActions from './transactions.actions';
 import * as TransactionsFeature from './transactions.reducer';
 import * as TransactionsSelectors from './transactions.selectors';
@@ -13,16 +11,6 @@ export class TransactionsFacade {
 
   transactions$ = this.store.pipe(
     select(TransactionsSelectors.getTransactions)
-  );
-
-  dateFilter$ = this.store.pipe(
-    select(TransactionsSelectors.getDateFilter),
-    this.filterNullOrUndefined()
-  );
-
-  statusFilter$ = this.store.pipe(
-    select(TransactionsSelectors.getStatusFilter),
-    this.filterNullOrUndefined()
   );
 
   isTransactionsLoading$ = this.store.pipe(
@@ -46,7 +34,7 @@ export class TransactionsFacade {
   );
 
   constructor(
-    private store: Store<TransactionsFeature.TransactionsPartialState>
+    private readonly store: Store<TransactionsFeature.TransactionsPartialState>
   ) {}
 
   enter() {
@@ -74,16 +62,6 @@ export class TransactionsFacade {
       TransactionsActions.filterByDate({
         date,
       })
-    );
-  }
-
-  private filterNullOrUndefined<T = unknown>(): OperatorFunction<
-    T | null | undefined,
-    T
-  > {
-    return pipe(
-      filter((data) => data !== null && data !== undefined),
-      map((value: T | undefined | null) => value as T)
     );
   }
 }
