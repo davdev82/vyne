@@ -55,10 +55,12 @@ const transactionsReducer = createReducer(
   on(TransactionsActions.filterByDate, (state, { date: dateFilter }) => ({
     ...state,
     dateFilter,
+    page: 0,
   })),
   on(TransactionsActions.filterByStatus, (state, { status: statusFilter }) => ({
     ...state,
     statusFilter,
+    page: 0,
   })),
   on(TransactionsActions.paginate, (state, { page }) => ({
     ...state,
