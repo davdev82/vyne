@@ -1,6 +1,6 @@
 <ng-container *ngIf="transactions">
   <div class="transactions-list">
-    <mat-table [dataSource]="transactions" *ngIf="transactions.length">
+    <mat-table [dataSource]="transactions">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
