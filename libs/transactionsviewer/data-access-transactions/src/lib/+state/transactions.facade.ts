@@ -29,10 +29,6 @@ export class TransactionsFacade {
     select(TransactionsSelectors.isTransactionsLoading)
   );
 
-  isTransactionsNotFetched$ = this.store.pipe(
-    select(TransactionsSelectors.isTransactionsNotFetched)
-  );
-
   isTransactionsSuccess$ = this.store.pipe(
     select(TransactionsSelectors.isTransactionsSuccess)
   );
@@ -48,8 +44,6 @@ export class TransactionsFacade {
   transactionsCount$ = this.store.pipe(
     select(TransactionsSelectors.getTransactionsCount)
   );
-
-  pageCount$ = this.store.pipe(select(TransactionsSelectors.getPageCount));
 
   constructor(
     private store: Store<TransactionsFeature.TransactionsPartialState>

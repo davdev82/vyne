@@ -19,7 +19,6 @@ export interface TransactionsState {
   statusFilter: TransactionStatus | null;
   dateFilter: string | null;
   page: number;
-  numberOfPages: number | null;
   totalNumberOfItems: number | null;
 }
 
@@ -33,7 +32,6 @@ export const initialState: TransactionsState = {
   statusFilter: null,
   page: 0,
   dateFilter: null,
-  numberOfPages: null,
   totalNumberOfItems: null,
 };
 
@@ -48,7 +46,6 @@ const transactionsReducer = createReducer(
     ...state,
     remoteState: remoteDataOK(null),
     transactions: apiResponse.items,
-    numberOfPages: apiResponse.numberOfPages,
     totalNumberOfItems: apiResponse.totalNumberOfItems,
   })),
   on(TransactionsActions.loadTransactionsFailure, (state, { error }) => ({

@@ -2,7 +2,6 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   isRemoteDataError,
   isRemoteDataLoading,
-  isRemoteDataNotFetched,
   isRemoteDataOK,
   RemoteData,
   Transaction,
@@ -46,18 +45,6 @@ export const getPageNumber = createSelector(
 export const getTransactionsCount = createSelector(
   selectTransactionsState,
   (state: TransactionsState) => state.totalNumberOfItems
-);
-
-export const getPageCount = createSelector(
-  selectTransactionsState,
-  (state: TransactionsState) => state.numberOfPages
-);
-
-export const isTransactionsNotFetched = createSelector(
-  getTransactionsRemoteState,
-  (remoteState: RemoteData) => {
-    return isRemoteDataNotFetched(remoteState);
-  }
 );
 
 export const isTransactionsLoading = createSelector(

@@ -12,11 +12,11 @@ import { PageEvent } from '@angular/material/paginator';
 export interface TransactionListViewModel {
   transactions: Transaction[] | null;
   transactionCount: number | null;
-  pageCount: number | null;
   loading: boolean;
   empty: boolean;
   failure: boolean;
   success: boolean;
+  page: number;
 }
 
 @Injectable()
@@ -30,7 +30,7 @@ export class TransactionListStore extends ComponentStore<never> {
   readonly vm$: Observable<TransactionListViewModel> = this.select(
     this.facade.transactions$,
     this.facade.transactionsCount$,
-    this.facade.pageCount$,
+    this.facade.page$,
     this.facade.isTransactionsLoading$,
     this.facade.isTransactionsFailure$,
     this.facade.isTransactionsEmpty$,
@@ -38,7 +38,7 @@ export class TransactionListStore extends ComponentStore<never> {
     (
       transactions,
       transactionCount,
-      pageCount,
+      page,
       loading,
       failure,
       empty,
@@ -46,7 +46,7 @@ export class TransactionListStore extends ComponentStore<never> {
     ) => ({
       transactions,
       transactionCount,
-      pageCount,
+      page,
       loading,
       failure,
       empty,
