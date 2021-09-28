@@ -23,9 +23,9 @@ export class TransactionsEffects {
   init$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TransactionsActions.enterTransactionsPage),
-      concatLatestFrom(() => {
-        return [this.store$.pipe(select(getTransactionsRemoteState))];
-      }),
+      concatLatestFrom(() => [
+        this.store$.pipe(select(getTransactionsRemoteState)),
+      ]),
       filter(([, remoteState]) => {
         return !!(
           isRemoteDataNotFetched(remoteState) || isRemoteDataError(remoteState)

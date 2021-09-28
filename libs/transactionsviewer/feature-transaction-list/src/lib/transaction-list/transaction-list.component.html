@@ -36,7 +36,7 @@
       There was an error getting the transactions list
     </p>
 
-    <p class="transactions-list__empty-section" *ngIf="vm.empty">
+    <p class="transactions-list__empty-section" *ngIf="vm.success && vm.empty">
       There are no transactions that match your filter criteria
     </p>
   </div>
